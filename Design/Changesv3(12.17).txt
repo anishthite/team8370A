@@ -1,0 +1,21 @@
+Intake	- 3 inch addition to prongs
+	- side beams moved up
+
+Arm	- Redid joints ( added bearing flat)
+
+Body 	- Steel-> Al (outside-right, back, battery holder)
+
+Gearing - taken out all axles and middle aligner
+	- aligned inside aligners
+
+
+
+TODO	- move assemby up?
+	- fix battery position
+	- rubber band holder ( and 7 rubber bands)
+	- frint steel-> Al
+	- High Hang
+	- left Al channel replace
+	- replace cortex hoder (steel-> Al)
+	- reassemble
+	- test/program
