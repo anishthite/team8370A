@@ -13,8 +13,8 @@ Gearing - taken out all axles and middle aligner
 
 TODO
 	- fix battery position
-	- rubber band holder ( and 7 rubber bands)
-	- frint steel-> Al
+	- reatatch rubber band holder ( and 7 rubber bands)
+	- front steel-> Al
 	- High Hang
 	- left Al channel replace
 	- reassemble
