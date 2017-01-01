@@ -1,15 +1,15 @@
-#pragma config(I2C_Usage, I2C1, i2cSensors)
 #pragma config(Sensor, dgtl1,  newcube,        sensorDigitalIn)
 #pragma config(Sensor, dgtl2,  oldcube,        sensorDigitalIn)
 #pragma config(Sensor, dgtl3,  skills,         sensorDigitalIn)
-#pragma config(Sensor, dgtl9,  ArmEncoder,     sensorQuadEncoder)
-#pragma config(Sensor, dgtl11, ArmTouch2,      sensorTouch)
-#pragma config(Sensor, dgtl12, ArmTouch1,      sensorTouch)
-#pragma config(Sensor, I2C_1,  rightDrive,     sensorQuadEncoderOnI2CPort,    , AutoAssign )
-#pragma config(Sensor, I2C_2,  leftDrive,      sensorQuadEncoderOnI2CPort,    , AutoAssign )
+#pragma config(Sensor, dgtl6,  leftEncoder,    sensorQuadEncoder)
+#pragma config(Sensor, dgtl8,  rightEncoder,   sensorQuadEncoder)
+#pragma config(Sensor, dgtl10, armEncoder,     sensorQuadEncoder)
+#pragma config(Sensor, dgtl12, armTouch,       sensorTouch)
+#pragma config(Sensor, I2C_1,  rightDrive,     sensorNone)
+#pragma config(Sensor, I2C_2,  leftDrive,      sensorNone)
 #pragma config(Motor,  port1,           backRight,     tmotorVex393_HBridge, openLoop, driveRight)
-#pragma config(Motor,  port2,           frontRight,    tmotorVex393_MC29, openLoop, driveRight, encoderPort, I2C_1)
-#pragma config(Motor,  port3,           frontLeft,     tmotorVex393_MC29, openLoop, driveLeft, encoderPort, I2C_2)
+#pragma config(Motor,  port2,           frontRight,    tmotorVex393_MC29, openLoop, driveRight)
+#pragma config(Motor,  port3,           frontLeft,     tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port5,           backLeft,      tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port6,           armRight,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           armRight2,     tmotorVex393_MC29, openLoop)
@@ -73,7 +73,7 @@ void stop_all(int time){	// stops all
 	wait1Msec(time);
 	}
 void cube_shoot(){
-	while(SensorValue[ArmTouch1] != 1){
+	while(SensorValue[armTouch] != 1){
 		// arm portion
 		motor[armLeft] = 127;
 		motor[armLeft2] = 127;
@@ -89,24 +89,25 @@ void cube_shoot(){
 	}
 void back_shoot(){	// drives back and shoots
 	//drive
+	 //
 	motor[backRight]=-127;
 	motor[backLeft]=-127;
 	motor[frontRight]=-127;
 	motor[frontLeft]=-127;
 	wait1Msec(600);
-	// start arm
-	while(SensorValue[ArmTouch1] != 1){
-		// arm portion
-		motor[armLeft] = 127;
-		motor[armLeft2] = 127;
-		motor[armRight] = -127;
-		motor[armRight2] = -127;
-		// drive portion
-		motor[backRight]=-127;
-		motor[backLeft]=-127;
-		motor[frontRight]=-127;
-		motor[frontLeft]=-127;
-		}
+	//// start arm
+	//while(SensorValue[ArmTouch1] != 1){
+	//	// arm portion
+	//	motor[armLeft] = 127;
+	//	motor[armLeft2] = 127;
+	//	motor[armRight] = -127;
+	//	motor[armRight2] = -127;
+	//	// drive portion
+	//	motor[backRight]=-127;
+	//	motor[backLeft]=-127;
+	//	motor[frontRight]=-127;
+	//	motor[frontLeft]=-127;
+
 	}
 void left_turn(int time){ // moves left laterally (red)
 	motor[backRight]=127;
@@ -123,7 +124,7 @@ void right_turn(int time){ // moves right laterally (blue)
 	wait1Msec(time);
 	}
 void arm_down(int deg){	// moves arm down
-	while (SensorValue[ArmEncoder] > deg){
+	while (SensorValue[armEncoder] > deg){
 		motor[armLeft] = -127;
 		motor[armLeft2] = -127; //L -70, R 50 cube1
 		motor[armRight] = 127;
@@ -157,7 +158,7 @@ void drive_backward(int time){ // drives forward
 		wait1Msec(time);
 	}
 void arm_up(int deg){	// moves arm down
-	while (SensorValue[ArmEncoder] < deg){
+	while (SensorValue[armEncoder] < deg){
 		motor[armLeft] = 127;
 		motor[armLeft2] = 127; //L -70, R 50 cube1
 		motor[armRight] = -127;
@@ -165,7 +166,7 @@ void arm_up(int deg){	// moves arm down
 	}
 	}
 void old_cube(){
-					SensorValue[ArmEncoder] = 0;
+					SensorValue[armEncoder] = 0;
 					back_shoot();
 					stop_all(400); //stop
 					drive_forward(270); //foreward a little
@@ -191,7 +192,7 @@ void old_cube(){
 					cube_shoot();
 	}
 void pro_skills(){
-	SensorValue[ArmEncoder] = 0;
+	SensorValue[armEncoder] = 0;
 	int startReturn = 800;
 
 	back_shoot();
@@ -243,7 +244,7 @@ void pro_skills(){
 
 	}
 void new_cube(){
-					SensorValue[ArmEncoder] = 0;
+					SensorValue[armEncoder] = 0;
 					back_shoot();
 					stop_all(200);
 					drive_forward(270); //foreward a little
@@ -282,10 +283,6 @@ void new_cube(){
 task autonomous()
 {
 
-			new_cube();
-
-
-
 					// positioning, side of arm aligned with first tab crossing, midsection of wheel aligned with second crossing of tabs
 }
 
@@ -301,13 +298,13 @@ task autonomous()
 
 // Lower to defend position
 task defendPositionl() {
-	while(SensorValue[ArmEncoder] > 90) {
+	while(SensorValue[armEncoder] > 90) {
 		motor[armLeft] = -127;
 		motor[armLeft2] = -127;
 		motor[armRight] = 127;
 		motor[armRight2] = 127;
 	}
-	if (SensorValue[ArmEncoder] < 90) {
+	if (SensorValue[armEncoder] < 90) {
 		motor[armLeft] = 0;
 		motor[armLeft2] = 0;
 		motor[armRight] = 0;
@@ -317,13 +314,13 @@ task defendPositionl() {
 }
 // Raise to defend position
 task defendPositionr() {
-	while(SensorValue[ArmEncoder] < 90) {
+	while(SensorValue[armEncoder] < 90) {
 		motor[armLeft] = 127;
 		motor[armLeft2] = 127;
 		motor[armRight] = -127;
 		motor[armRight2] = -127;
 	}
-	if (SensorValue[ArmEncoder] > 90) {
+	if (SensorValue[armEncoder] > 90) {
 		motor[armLeft] = 0;
 		motor[armLeft2] = 0;
 		motor[armRight] = 0;
@@ -340,7 +337,7 @@ task usercontrol()
   {
 
 	  	float SpeedDivisor = 1;
-	  	float backLimit = SensorValue[ArmTouch1];
+	  	float backLimit = SensorValue[armTouch];
 			float LeftDrive = vexRT[Ch3]/SpeedDivisor, RightDrive = vexRT[Ch2]/SpeedDivisor;
 
 //drive
@@ -375,7 +372,15 @@ task usercontrol()
 				stop_all(1000000000);
 			}
 			if(vexRT[Btn8U] == 1){
-			new_cube();
+if (SensorValue[newcube] == 1){
+
+	drive_forward(100);
+
+
+	}
+	else{
+		wait1Msec(100);
+}
 		//SensorValue[ArmEncoder] = 0;
 
 				//back_shoot();
