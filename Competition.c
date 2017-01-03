@@ -113,9 +113,14 @@ void left_turn(float ticks){ // moves left laterally (red)
 	SensorValue[leftEncoder] = 0;
 	while(SensorValue[rightEncoder] < ticks || SensorValue[leftEncoder] > -ticks){
 					if(SensorValue[rightEncoder] < ticks){ //forward shaft rotation
+ 							if (SensorValue[rightEncoder]/ticks <.8){
  								motor[backRight]=127;
 								motor[frontRight]=127;
-
+							}
+							else{
+								motor[backRight]=90;
+								motor[frontRight]=90;
+							}
  					}
 					else
 					{
@@ -123,8 +128,14 @@ void left_turn(float ticks){ // moves left laterally (red)
 								motor[frontRight]=0;
 					}
 					if(SensorValue[leftEncoder] > -ticks){ //reversed shaft rotation
- 						motor[backLeft]=-127;
- 						motor[frontLeft]=-127;
+ 						if (SensorValue[leftEncoder]/ticks >-.8){
+ 								motor[backLeft]=-127;
+ 								motor[frontLeft]=-127;
+ 							}
+ 						else{
+ 							motor[backLeft]=-90;
+ 							motor[frontLeft]=-90;
+ 							}
 					}
 					else{
  						motor[backLeft]=0;
@@ -138,9 +149,14 @@ SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 	while(SensorValue[leftEncoder] < ticks || SensorValue[rightEncoder] > -ticks){
 					if(SensorValue[leftEncoder] < ticks){ //forward shaft rotation
- 								motor[backLeft]=127;
-								motor[frontLeft]=127;
-
+ 								if (SensorValue[leftEncoder]/ticks < .8){
+										motor[backLeft]=127;
+										motor[frontLeft]=127;
+									}
+								else{
+										motor[backLeft]=90;
+										motor[frontLeft]=90;
+									}
  					}
 					else
 					{
@@ -148,15 +164,19 @@ SensorValue[rightEncoder] = 0;
 								motor[frontLeft]=0;
 					}
 					if(SensorValue[rightEncoder] > -ticks){ //reversed shaft rotation
- 						motor[backRight]=-127;
- 						motor[frontRight]=-127;
-					}
+ 						if (SensorValue[rightEncoder]/ticks > -.8){
+							motor[backRight]=-127;
+ 							motor[frontRight]=-127;
+ 						}
+ 						else{
+ 							motor[backRight]=-90;
+ 							motor[frontRight]=-90;}
+						}
 					else{
  						motor[backRight]=0;
  						motor[frontRight]=0;
 					}
 }
-
 	}
 void arm_down(int deg){	// moves arm down
 	while (SensorValue[armEncoder] > deg){
@@ -185,10 +205,18 @@ void drive_forward(float inches){ // drives forward
 	while (SensorValue[rightEncoder]<ticks){
 
 		if (SensorValue[rightEncoder]==SensorValue[leftEncoder]){
-					motor[backRight]=127;
+				if (SensorValue[rightEncoder]/ticks <.8)
+				{motor[backRight]=127;
 					motor[backLeft]=127;
 					motor[frontRight]=127;
 					motor[frontLeft]=127;
+				}
+				else{
+				{motor[backRight]=60;
+					motor[backLeft]=60;
+					motor[frontRight]=60;
+					motor[frontLeft]=60;
+				}
 		}
 		if (SensorValue[rightEncoder] <SensorValue[leftEncoder]){
 					motor[backRight]=127;
@@ -203,36 +231,44 @@ void drive_forward(float inches){ // drives forward
 					motor[frontLeft]=127;
 		}
 		}
-			motor[backRight]=-63;
-			motor[backLeft]=-63;
-			motor[frontRight]=-63;
-			motor[frontLeft]=-63;
-			wait1Msec(12);
+			//motor[backRight]=-63;
+			//motor[backLeft]=-63;
+			//motor[frontRight]=-63;
+			//motor[frontLeft]=-63;
+			//wait1Msec(12);
 	}
+}
 void drive_backward(float inches){ // drives forward
 SensorValue[rightEncoder] = 0;
-	SensorValue[leftEncoder] = 0;
-float ticks = inches * 28.6478898;
-	while (SensorValue[rightEncoder]<ticks)
+SensorValue[leftEncoder] = 0;
+float ticks = inches * -28.6478898;
+	while (SensorValue[rightEncoder]>ticks)
 {
 		if (SensorValue[rightEncoder]==SensorValue[leftEncoder]){
-					motor[backRight]=-127;
-					motor[backLeft]=-127;
-					motor[frontRight]=-127;
-					motor[frontLeft]=-127;
+									if (SensorValue[rightEncoder]/ticks <.3)
+				{motor[frontRight]=-60;
+					motor[backLeft]=-60;
+					motor[frontLeft]=-60;
+					motor[backRight]=-60;
+				}
+				else
+				{	motor[frontRight]=-60;
+					motor[backLeft]=-60;
+					motor[frontLeft]=-60;
+					motor[backRight]=-60;}
 		}
-		if (SensorValue[rightEncoder] <SensorValue[leftEncoder]){
-					motor[backRight]=-127;
-					motor[backLeft]=-110;
-					motor[frontRight]=-127;
-					motor[frontLeft]=-110;
-		}
-		if (SensorValue[rightEncoder] >SensorValue[leftEncoder]){
-					motor[backRight]=-110;
-					motor[backLeft]=-127;
-					motor[frontRight]=-110;
-					motor[frontLeft]=-127;
-	}
+	//	if (SensorValue[rightEncoder] >SensorValue[leftEncoder]){
+	//				motor[backRight]=-127;
+	//				motor[backLeft]=-110;
+	//				motor[frontRight]=-127;
+	//				motor[frontLeft]=-110;
+	//	}
+	//	if (SensorValue[rightEncoder] <SensorValue[leftEncoder]){
+	//				motor[backRight]=-110;
+	//				motor[backLeft]=-127;
+	//				motor[frontRight]=-110;
+	//				motor[frontLeft]=-127;
+	//}
 }
 }
 void arm_up(int deg){	// moves arm down
@@ -321,41 +357,51 @@ void pro_skills(){
 
 
 	}
+void drive_backward_time(int time){
+	motor[frontRight]=-60;
+	motor[backLeft]=-60;
+	motor[frontLeft]=-60;
+	motor[backRight]=-60;
+	wait1Msec(time);
+}
 void new_cube(){
 					SensorValue[armEncoder] = 0;
 					back_shoot();
 					stop_all(200);
-					drive_forward(270); //foreward a little
+					drive_forward(9); //foreward a little
 					stop_all(50);
-					left_turn(420); //laeral
+					left_turn(240); //laeral
 					stop_all(50);
-					drive_forward(1100); // 500 ms == 3 ft
+					drive_forward(35); // 500 ms == 3 ft
 					stop_all(50);
-					right_turn(360);
+					right_turn(250);
 					stop_all(50);//prev 200
-					drive_backward(200); //comp:200
+					drive_backward_time(120);
+					stop_all(50);
+					drive_forward(1);
 					stop_all(50); //prev 500
 					arm_down(10);
 					stop_all(50); //prev 500
-					drive_forward(1500); // comp:1500
+					drive_forward(20); // comp:1500
+					arm_up(90);
 					stop_all(50);//prev 500
-					drive_backward(500); // comp:500
+					drive_backward(25); // comp:500
 					stop_all(50);//prev 500
-					arm_down(3);
+					arm_down(5);
 					stop_all(50);//prev 500
-					drive_forward(1800); // comp:1800
+					drive_forward(52); // comp:1800
 					stop_all(50);//prev 500
 					cube_shoot();
 
-					drive_forward(100);
-					stop_all(50);
-					arm_down(3);
-					stop_all(50);
-					drive_forward(1500); //comp: 1500
-					stop_all(50);
-					arm_up(50);
-					stop_all(50);
-					back_shoot();
+					//drive_forward(100);
+					//stop_all(50);
+					//arm_down(3);
+					//stop_all(50);
+					//drive_forward(1500); //comp: 1500
+					//stop_all(50);
+					//arm_up(50);
+					//stop_all(50);
+					//back_shoot();
 	}
 
 task autonomous()
@@ -451,7 +497,7 @@ task usercontrol()
 			}
 			if(vexRT[Btn8U] == 1){
 
-	left_turn(260);
+	new_cube();
 
 
 
@@ -485,10 +531,10 @@ task usercontrol()
 				//	arm_down(3);
 				//	drive_forward(1500); //comp: 1500
 				//	arm_up(50);
-				//	back_shoot();
-			}
+				//	back_shoot();}
 
 	}
     // DO NOT REMOVE BELOW WITHOUT ASKING ANISH.
     UserControlCodePlaceholderForTesting();
   }
+}
