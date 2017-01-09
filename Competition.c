@@ -202,7 +202,7 @@ void drive_forward(float inches){ // drives forward
 	SensorValue[rightEncoder] = 0;
 	SensorValue[leftEncoder] = 0;
 	float ticks = inches * 28.6478898;
-	while (SensorValue[rightEncoder]<ticks){
+	while (SensorValue[rightEncoder]<ticks && SensorValue[leftEncoder] < ticks){
 
 		if (SensorValue[rightEncoder]==SensorValue[leftEncoder]){
 				if (SensorValue[rightEncoder]/ticks <.8)
