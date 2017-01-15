@@ -10,6 +10,7 @@
 #pragma config(Motor,  port1,           backRight,     tmotorVex393_HBridge, openLoop, driveRight)
 #pragma config(Motor,  port2,           frontRight,    tmotorVex393_MC29, openLoop, driveRight)
 #pragma config(Motor,  port3,           frontLeft,     tmotorVex393_MC29, openLoop, driveLeft)
+#pragma config(Motor,  port4,           claw,          tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port5,           backLeft,      tmotorVex393_MC29, openLoop, driveLeft)
 #pragma config(Motor,  port6,           armRight,      tmotorVex393_MC29, openLoop)
 #pragma config(Motor,  port7,           armRight2,     tmotorVex393_MC29, openLoop)
@@ -367,32 +368,40 @@ void drive_backward_time(int time){
 void new_cube(){
 					SensorValue[armEncoder] = 0;
 					back_shoot();
-					stop_all(200);
+					stop_all(200)
 					drive_forward(9); //foreward a little
-					stop_all(50);
+					stop_all(500);
 					left_turn(240); //laeral
 					stop_all(50);
-					drive_forward(35); // 500 ms == 3 ft
-					stop_all(50);
-					right_turn(250);
-					stop_all(50);//prev 200
-					drive_backward_time(120);
-					stop_all(50);
-					drive_forward(1);
-					stop_all(50); //prev 500
-					arm_down(10);
-					stop_all(50); //prev 500
-					drive_forward(20); // comp:1500
-					arm_up(90);
-					stop_all(50);//prev 500
-					drive_backward(25); // comp:500
-					stop_all(50);//prev 500
-					arm_down(5);
-					stop_all(50);//prev 500
-					drive_forward(52); // comp:1800
-					stop_all(50);//prev 500
-					cube_shoot();
-
+					drive_forward(45);//35 // 500 ms == 3 ft
+					//stop_all(50);
+					//right_turn(250);
+					//stop_all(50);//prev 200
+					//drive_backward_time(120);
+					//stop_all(50);
+					//drive_forward(1);
+					//stop_all(50); //prev 500
+					//arm_down(10);
+					//stop_all(50); //prev 500
+					//drive_forward(20); // comp:1500
+					//arm_up(90);
+					//stop_all(50);//prev 500
+					//drive_backward(25); // comp:500
+					//stop_all(50);//prev 500
+					//arm_down(5);
+					//stop_all(50);//prev 500
+					//drive_forward(52); // comp:1800
+					//stop_all(50);//prev 500
+					//cube_shoot();
+					//////second star
+					//stop_all(50);
+					//drive_backward(5);
+					//stop_all(50)
+					//drive_forward(5);
+					//arm_down(5);
+					//drive_forward(50);
+					//stop_all(50);
+					//back_shoot();
 					//drive_forward(100);
 					//stop_all(50);
 					//arm_down(3);
@@ -419,7 +428,7 @@ void new_cube(){
 	stop_all(50);
 	drive_forward(12);
 	stop_all(50);
-	right_turn(250);
+	right_turn(240);
 	stop_all(50);
 	arm_up(80);
 	stop_all(50);
@@ -518,12 +527,33 @@ task usercontrol()
 				motor[armRight2] = 0;
 			}
 
+// claw code
+		if(vexRT[Btn5U] == 1)	// if button 6U is pressed, arm goes up
+			{
+
+
+				motor[claw] = 127;
+
+			}
+	 	 else if(vexRT[Btn5D] == 1) // if button 6D is pressed, arm goes down
+			{
+				motor[claw] = -127;
+			}
+		else // stays at 0
+			{
+				motor[claw] = 0;
+			}
+
+
+
+
+
 			if(vexRT[Btn8D] == 1){
 				right_turn(260);
 			}
 			if(vexRT[Btn8U] == 1){
 
-	star();
+	new_cube();
 
 
 
