@@ -413,13 +413,13 @@ void clawstar(){ // knocks stars off the fence, turns around to get the preload 
 	stop_all(20);
 	star_shoot();
 
-	close_claw(300);
+	close_claw(300);//open???
 	stop_all(20);
 	arm_down(0);
 	stop_all(20);
 	drive_forward(35);
 	stop_all(20);
-	close_claw(1000);
+	open_claw(1000);//prev close
 	stop_all(20);
 	drive_backward(5);
 	stop_all(20);
