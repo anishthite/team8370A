@@ -120,6 +120,32 @@ void cube_shoot(){
 	}
 
 }
+void star_shoot(){
+	bool clawFlag = true;
+	while(SensorValue[armTouch] != 1){
+
+		// arm portion
+		motor[armLeft] = 127;
+		motor[armLeft2] = 127;
+		motor[armRight] = -127;
+		motor[armRight2] = -127;
+		//claw portion
+		if (SensorValue[armEncoder] > 30){//30
+			if (clawFlag == true){
+				startTask (clawupopen);
+				clawFlag = false;}
+		}
+		if (SensorValue[armEncoder] < 30){//30
+			clawFlag = true;
+		}
+		// drive portion
+		motor[backRight]=-127;
+		motor[backLeft]=-127;
+		motor[frontRight]=-127;
+		motor[frontLeft]=-127;
+	}
+
+}
 void back_shoot(){	// drives back and shoots
 	//drive backward for
 	motor[backRight]=-127;
@@ -362,26 +388,42 @@ void clawstar(){ // knocks stars off the fence, turns around to get the preload 
 	SensorValue[armEncoder] = 0;
 
 	//close claw to widest position
-	close_claw(300);
-	stop_all(20);
+	//close_claw(200);
+	///stop_all(20);
 	//raise arm
-	arm_up(90);
-	stop_all(20);
+	//arm_up(90);
+	//stop_all(20);
 	//drive forward
-	drive_forward(12);
+	drive_forward(30);
 	stop_all(20);
-	//back up
-	drive_backward(6);
+	////back up
+	//stop_all(20);
+	right_turn(450);
 	stop_all(20);
-	right_turn(400);
-	stop_all(20);
-	drive_forward(6);
+	arm_up(90);
+	close_claw(90);
+	stop_all(50);
+	arm_down(00);
+	stop_all(50);
+	drive_forward(25);
 	stop_all(20);
 	close_claw(1000);
 	stop_all(20);
 	drive_backward(5);
 	stop_all(20);
-	cube_shoot();
+	star_shoot();
+
+	close_claw(300);
+	stop_all(20);
+	arm_down(0);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(1000);
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
 }
 void clawstarcube(){
 	nMotorEncoder[rightEncoder] = 0;
