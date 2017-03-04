@@ -413,13 +413,16 @@ void clawstar(){ // knocks stars off the fence, turns around to get the preload 
 	stop_all(20);
 	star_shoot();
 
-	close_claw(300);//open???
-	stop_all(20);
+	stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
 	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
 	stop_all(20);
 	drive_forward(35);
 	stop_all(20);
-	open_claw(1000);//prev close
+	close_claw(900);//1000 prev
 	stop_all(20);
 	drive_backward(5);
 	stop_all(20);
@@ -470,6 +473,64 @@ void clawcube(){
 	nMotorEncoder[rightEncoder] = 0;
 	nMotorEncoder[leftEncoder] = 0;
 	SensorValue[armEncoder] = 0;
+	drive_forward(25);
+	stop_all(20);
+	////back up
+	//stop_all(20);
+	right_turn(175);//450/2
+	stop_all(20);
+	//
+	arm_up(90);
+	close_claw(90);
+	stop_all(50);
+	arm_down(00);
+	stop_all(50);
+	drive_forward(25);
+	stop_all(50);
+	close_claw(1300);
+	//arm_up(5);
+	stop_all(50);
+	startTask(clawclose);
+	right_turn(200);
+	//arm_down(1);
+	drive_forward(4);//4
+	close_claw(1200);//500
+	stop_all(50);
+	drive_backward(15);
+	stop_all(50);
+	cube_shoot();
+	//second star pickup time
+	//drive_forward(10);
+	//stop_all(50);
+	//arm_down(0);
+	//stop_all(50);
+	//drive_forward(25);
+	//stop_all(50);
+	//close_claw(1300);
+	//stop_all(50);
+	//drive_backward(15);
+	//stop_all(50);
+	//cube_shoot();
+	stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(900);//1000 prev
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
+}
+
+void savedclawcube(){
+	nMotorEncoder[rightEncoder] = 0;
+	nMotorEncoder[leftEncoder] = 0;
+	SensorValue[armEncoder] = 0;
 	arm_up(90);
 	close_claw(90);
 	stop_all(50);
@@ -501,6 +562,20 @@ void clawcube(){
 	//drive_backward(15);
 	//stop_all(50);
 	//cube_shoot();
+	stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(900);//1000 prev
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
 }
 
 task autonomous()
@@ -616,6 +691,11 @@ task usercontrol()
 			nMotorEncoder[rightClaw] = 0;
 			nMotorEncoder[leftClaw] = 0;
 			SensorValue[armEncoder] = 0;
+			//SensorValue[ArmEncoder] = 0;
+		}
+				if(vexRT[Btn7U] == 1){
+
+			close_claw(900);
 			//SensorValue[ArmEncoder] = 0;
 		}
 		// DO NOT REMOVE BELOW WITHOUT ASKING ANISH.
