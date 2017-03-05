@@ -474,30 +474,30 @@ void clawcube(){
 	nMotorEncoder[leftEncoder] = 0;
 	SensorValue[armEncoder] = 0;
 	drive_forward(25);
-	stop_all(20);
+	stop_all(10);//20
 	////back up
 	//stop_all(20);
 	right_turn(175);//450/2
-	stop_all(20);
+	stop_all(10);//20
 	//
 	arm_up(90);
 	close_claw(90);
-	stop_all(50);
-	arm_down(00);
-	stop_all(50);
+	stop_all(10);//50
+	arm_down(0);
+	stop_all(10);//50
 	drive_forward(25);
-	stop_all(50);
+	stop_all(10);//50
 	close_claw(1300);
 	//arm_up(5);
-	stop_all(50);
+	stop_all(10);//50
 	startTask(clawclose);
 	right_turn(200);
 	//arm_down(1);
 	drive_forward(4);//4
 	close_claw(1200);//500
-	stop_all(50);
+	stop_all(10);//50
 	drive_backward(15);
-	stop_all(50);
+	stop_all(10);//50
 	cube_shoot();
 	//second star pickup time
 	//drive_forward(10);
@@ -515,16 +515,17 @@ void clawcube(){
 	close_claw(900);//open???
 	stop_all(200);
 	arm_down(0);
-	stop_all(20);
+	stop_all(10);//20
 	open_claw(1000);
-	stop_all(20);
-	drive_forward(35);
-	stop_all(20);
-	close_claw(900);//1000 prev
-	stop_all(20);
+	stop_all(10);//20
+	drive_forward(30);
+	stop_all(10);//20
+	close_claw(1000);//1000 prev
+	stop_all(10);//20
 	drive_backward(5);
-	stop_all(20);
+	stop_all(10);//20
 	star_shoot();
+	stop_all(10);//20
 }
 
 void savedclawcube(){
@@ -577,11 +578,152 @@ void savedclawcube(){
 	stop_all(20);
 	star_shoot();
 }
+void skills(){
+	nMotorEncoder[rightEncoder] = 0;
+	nMotorEncoder[leftEncoder] = 0;
+	SensorValue[armEncoder] = 0;
+
+	//close claw to widest position
+	//close_claw(200);
+	///stop_all(20);
+	//raise arm
+	//arm_up(90);
+	//stop_all(20);
+	//drive forward
+	drive_forward(30);
+	stop_all(20);
+	////back up
+	//stop_all(20);
+	right_turn(450);//450
+	stop_all(20);
+	arm_up(90);
+	close_claw(90);
+	stop_all(50);
+	arm_down(00);
+	stop_all(50);
+	drive_forward(25);
+	stop_all(20);
+	close_claw(1000);
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
+
+	stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(900);//1000 prev
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
+	//end of regular star
+		stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(900);//1000 prev
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
+	//
+		stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	stop_all(20);
+	drive_forward(35);
+	stop_all(20);
+	close_claw(900);//1000 prev
+	stop_all(20);
+	drive_backward(5);
+	stop_all(20);
+	star_shoot();
+	//drive transition
+	stop_all(1500);
+
+	//drive_forward(5);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(20);
+	open_claw(1000);
+	right_turn(175);
+	drive_forward(25);
+	//cube
+	//drive_forward(25);
+	stop_all(10);//20
+	////back up
+	//stop_all(20);
+	//left_turn(175);//450/2
+	//stop_all(10);//20
+	//
+	//arm_up(90);
+	//close_claw(90);
+	//stop_all(10);//50
+	//arm_down(0);
+	//stop_all(10);//50
+	//drive_forward(25);
+	//stop_all(10);//50
+	close_claw(1300);
+	//arm_up(5);
+	stop_all(10);//50
+	startTask(clawclose);
+	left_turn(200);
+	//arm_down(1);
+	drive_forward(4);//4
+	close_claw(1200);//500
+	stop_all(10);//50
+	drive_backward(15);
+	stop_all(10);//50
+	cube_shoot();
+	//second star pickup time
+	//drive_forward(10);
+	//stop_all(50);
+	//arm_down(0);
+	//stop_all(50);
+	//drive_forward(25);
+	//stop_all(50);
+	//close_claw(1300);
+	//stop_all(50);
+	//drive_backward(15);
+	//stop_all(50);
+	//cube_shoot();
+	stop_all(1500);
+	close_claw(900);//open???
+	stop_all(200);
+	arm_down(0);
+	stop_all(10);//20
+	open_claw(1000);
+	stop_all(10);//20
+	drive_forward(30);
+	stop_all(10);//20
+	close_claw(1000);//1000 prev
+	stop_all(10);//20
+	drive_backward(5);
+	stop_all(10);//20
+	star_shoot();
+	stop_all(10);//20
+}
 
 task autonomous()
 {
-	if (SensorValue[autostarcube] == 0){
-		clawstarcube();
+	if (SensorValue[autoback] == 0){
+		skills();
 	}
 	else if (SensorValue[autostar] == 0){
 		clawstar();
@@ -647,8 +789,8 @@ task usercontrol()
 			}
 		}
 		if (vexRT[Btn7D] == 1)
-		{if (SensorValue[autostarcube] == 0){
-		clawstarcube();
+		{if (SensorValue[autoback] == 0){
+		skills();
 	}
 	else if (SensorValue[autostar] == 0){
 		clawstar();
