@@ -3,40 +3,58 @@
 
 
 
-//initialize arrays, will record tenth of a second (not enough mem for hundreth)- compression?
+//initialize arrays, will record tenth of a second (not enough mem for hundreth)-
+/**
+skills in hundreths (6000)
+skills in tenths 	(600)
+auto in hundreths (1500)
+auto in tenths		(150)
+** /
 /** Customize per robot **/
-int rightDrive[150];
-int leftDrive[150];
-
-//initializes arrays to 0
-void initializeArray(int* motor){
+//use short for joystick values, convert to bool from int for button values
+short rDrive[1500];
+short lDrive[1500];
+bool button[1500];
+//initializes short arrays to 0
+void initializeShortArray(short* motor){
 		for(int i=0;i<150;i++)
 	{
 		motor[i]=0;
 	}
 
 }
+//initialize bool arrays to zero
+void initializeBoolArray(bool* motor){
+		for(int i=0;i<150;i++)
+	{
+		motor[i] = 0;
+	}
+
+}
+//converts int values to bool values
+void convert(){}
 //initializes arrays and clears debug stream
 void initialize(){
 	clearDebugStream();
 	/** Customize per robot **/
-	initializeArray(rightDrive);
-	initializeArray(leftDrive);
+	initializeShortArray(rDrive);
+	initializeShortArray(lDrive);
+	initializeBoolArray(button);
 
 }
 void recordAndRun(){
 for (int i = 0; i < 150; i++){
 	/** Customize per robot **/
 	//set equal to input device (button or joystick)
-	rightDrive[i] = vexRT[Ch2];
-	leftDrive[i] = vexRT[Ch3];
+	rDrive[i] = vexRT[Ch2];
+	lDrive[i] = vexRT[Ch3];
 	wait10Msec(1);
 	//shuts off all motors
 }
 
 }
 
-task main()
+task reRun()
 {
 /** paste code to run robot here**/
 
