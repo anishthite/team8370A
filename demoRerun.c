@@ -30,9 +30,10 @@ void initializeArray(int* motor){
 void recordAndRun(){
 for (int i = 0; i < 150; i++){
 	/** Customize per robot **/
-	//set equal to inout edvice (button or joystick)
+	//set equal to input device (button or joystick)
 	rightDrive[i] = vexRT[Ch2];
 	leftDrive[i] = vexRT[Ch3];
+	wait10Msec(1);
 }
 
 }
@@ -42,17 +43,15 @@ void initialize(){
 	/** Customize per robot **/
 	initializeArray(rightDrive);
 	initializeArray(leftDrive);
-	initializeArray(motor3);
-	initializeArray(motor4);
-	initializeArray(motor5);
-	initializeArray(motor6);
-	initializeArray(motor7);
-	initializeArray(motor8);
-	initializeArray(motor9);
-	initializeArray(motor10);
+
 }
 task main()
 {
+/** paste code to run robot here**/
 
+
+//initialize
+//record and run
+//write to output stream
 
 }
