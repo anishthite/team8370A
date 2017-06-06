@@ -25,12 +25,19 @@ void initializeShortArray(short* motor){
 void initializeBoolArray(bool* motor){
 	for(int i=0;i<150;i++)
 	{
-		motor[i] = 0;
+		motor[i] = false;
 	}
 
 }
 //converts int values to bool values
-void convert(){}
+bool convert(int i){
+	bool temp = false;
+if (i == 1){
+ 	temp = true;
+ }
+ 	return temp;
+
+}
 //initializes arrays and clears debug stream
 void initialize(){
 	clearDebugStream();
@@ -46,12 +53,18 @@ void recordAndRun(){
 		//set equal to input device (button or joystick)
 		rDrive[i] = vexRT[Ch2];
 		lDrive[i] = vexRT[Ch3];
+		button[i] = convert(vexRT[Btn7U]);
 		wait10Msec(1);
 		//shuts off all motors
 	}
 
 }
+//oututs the arrays for use in auton
+void output(){
 
+
+
+}
 task reRun()
 {
 	/** paste code to run robot here**/
