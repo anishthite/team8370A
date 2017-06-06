@@ -6,7 +6,5 @@
 #include "demoDriverControl.c";
 task main()
 {
-
-startTask (reRun);
-startTask(driverControl);
+startTask(reRun);
 }
