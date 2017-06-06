@@ -1,5 +1,5 @@
 
-//Driver COntrol code
+//Driver Control code
 task driverControl(){
 	while (true){
 	motor[rightDrive] = vexRT[Ch2];
