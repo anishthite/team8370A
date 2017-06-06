@@ -15,7 +15,7 @@ short lDrive[1500];
 bool button[1500];
 //initializes short arrays to 0
 void initializeShortArray(short* motor){
-	for(int i=0;i<150;i++)
+	for(int i=0;i<1500;i++)
 	{
 		motor[i]=0;
 	}
@@ -23,7 +23,7 @@ void initializeShortArray(short* motor){
 }
 //initialize bool arrays to zero
 void initializeBoolArray(bool* motor){
-	for(int i=0;i<150;i++)
+	for(int i=0;i<1500;i++)
 	{
 		motor[i] = false;
 	}
@@ -48,7 +48,7 @@ void initialize(){
 
 }
 void recordAndRun(){
-	for (int i = 0; i < 150; i++){
+	for (int i = 0; i < 1500; i++){
 		/** Customize per robot **/
 		//set equal to input device (button or joystick)
 		rDrive[i] = vexRT[Ch2];
@@ -59,11 +59,28 @@ void recordAndRun(){
 	}
 
 }
-//oututs the arrays for use in auton
-void output(){
+void newLine ()
+{
+	writeDebugStreamLine("");
+}
+//outputs the short arrays for use in auton
+void outputshort(short* name){
+	writeDebugStreamLine("	Array = ");
+	for(int i=0;i<1500;i++)
+	{
 
-
-
+			writeDebugStream("%d", name[i]);
+		newLine();
+	}
+}
+//outputs the bool arrays for use in auton
+void outputbool(bool* name){
+	writeDebugStreamLine("	Array = ");
+	for(int i=0;i<1500;i++)
+	{
+			writeDebugStream("%d", name[i]);
+	}
+		newLine();
 }
 task reRun()
 {
@@ -72,12 +89,14 @@ task reRun()
 	//kill all motors
 	stopAllMotors();
 	initialize();
-	startTask(driverControl);
+	startTask (driverControl);
 	//record and run
 	recordAndRun();
 	stopAllMotors();
 	//write to output stream
-	output();
+	outputshort(rDrive);
+	outputshort(lDrive);
+	outputbool(button);
 
 
 }

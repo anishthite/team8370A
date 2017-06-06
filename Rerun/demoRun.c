@@ -5,7 +5,25 @@
 
 #include "demoRerun.c";
 #include "demoDriverControl.c";
+
+int reconvert(bool boolean){
+	int temp = 0;
+	if (boolean == true){
+		temp = 1;
+	}
+return temp;
+}
 task main()
 {
 startTask(reRun);
+}
+//auton generated from Rerun
+void demoauton(){
+	for(int i=0;i<1500;i++){
+		motor[rightDrive] = rDrive[i];
+		motor[leftDrive] = lDrive[i];
+		motor[but] = reconvert(button[i]);
+		wait10Msec(1);
+	}
+stopAllMotors();
 }
