@@ -1,7 +1,7 @@
 //tank drive code
 void drive(){
   	int leftdrive = vexRT[Ch3Xmtr2];
-   	int rightdrive = vexRT[Ch4Xmtr2];
+   	int rightdrive = vexRT[Ch2Xmtr2];
    	motor(backLeft) = leftdrive;
    	motor(frontLeft) = leftdrive;
    	motor(backRight) = rightdrive;
